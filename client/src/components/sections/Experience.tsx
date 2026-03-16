@@ -7,9 +7,9 @@ const experiences = [
   {
     id: 'sourceiq',
     number: '01',
-    role: 'Full-Stack Intern',
+    role: 'Full-Stack Developer',
     company: 'SourceIQ',
-    period: '2024',
+    period: 'Jan 2026 - Present',
     focus: 'B2B Supply Chain & Scaling',
     description: 'Built a supply chain platform for 100K+ global suppliers. Developed RESTful APIs for complex authentication and matching microservices.',
     metric: { value: 100, suffix: 'K+', label: 'Suppliers' },
@@ -18,31 +18,20 @@ const experiences = [
   {
     id: 'opusclip',
     number: '02',
-    role: 'Full-Stack Intern',
+    role: 'Full-Stack Developer (Intern)',
     company: 'Opus Clip',
-    period: '2024',
+    period: 'Jul 2024 - Dec 2024',
     focus: 'GenAI & High Traffic',
     description: 'Engineered the frontend for a high-traffic GenAI video platform. Implemented SSR skeleton and prefetching, increasing user retention by 5%.',
     metric: { value: 5, suffix: '%', label: 'Retention ↑' },
     stack: ['React', 'TypeScript', 'GenAI', 'Figma'],
   },
   {
-    id: 'microsoft',
-    number: '03',
-    role: 'Full-Stack Developer',
-    company: 'Microsoft & UW',
-    period: '2023',
-    focus: 'IoT & Real-time Visualization',
-    description: 'Designed a monitoring dashboard for agricultural IoT metrics with end-to-end task management and high availability on Azure cloud.',
-    metric: { value: 99, suffix: '.9%', label: 'Uptime SLA' },
-    stack: ['React', 'Azure', 'IoT'],
-  },
-  {
     id: 'treevah',
-    number: '04',
-    role: 'Full-Stack Intern',
+    number: '03',
+    role: 'Full-Stack Developer (Intern)',
     company: 'Treevah',
-    period: '2023',
+    period: 'Jun 2024 - Nov 2024',
     focus: 'Infrastructure & CI/CD',
     description: 'Led the design of a file management application. Established scalable CI/CD pipelines with Jenkins and AWS for optimized content delivery.',
     metric: { value: 40, suffix: '%', label: 'Deploy Time ↓' },
@@ -50,14 +39,25 @@ const experiences = [
   },
   {
     id: 'tmobile',
-    number: '05',
+    number: '04',
     role: 'Full-Stack Developer',
-    company: 'T-Mobile & UW',
-    period: '2022',
+    company: 'T-Mobile & University of Washington',
+    period: 'Jul 2024 - Mar 2025',
     focus: 'Accessibility & UI Libraries',
     description: 'Co-developed a healthcare dashboard with 30+ WCAG-compliant UI components for diverse patient demographics.',
     metric: { value: 30, suffix: '+', label: 'Components' },
     stack: ['Next.js', 'Redux', 'Azure'],
+  },
+  {
+    id: 'microsoft',
+    number: '05',
+    role: 'Full-Stack Developer',
+    company: 'Microsoft & University of Washington',
+    period: 'Mar 2024 - Jun 2024',
+    focus: 'IoT & Real-time Visualization',
+    description: 'Designed a monitoring dashboard for agricultural IoT metrics with end-to-end task management and high availability on Azure cloud.',
+    metric: { value: 99, suffix: '.9%', label: 'Uptime SLA' },
+    stack: ['React', 'Azure', 'IoT'],
   },
 ];
 
@@ -84,12 +84,12 @@ function ExpCard({ exp, index }: { exp: (typeof experiences)[0]; index: number }
       ref={ref}
       onMouseMove={onMouseMove}
       onMouseLeave={onMouseLeave}
-      className="glass"
       style={{
         rotateX, rotateY,
         transformPerspective: 1000,
-        borderRadius: '28px',
+        borderRadius: '24px',
         overflow: 'hidden',
+        background: 'var(--bg-panel)',
       }}
       initial={{ opacity: 0, y: 36, scale: 0.98 }}
       animate={inView ? { opacity: 1, y: 0, scale: 1 } : {}}
@@ -106,7 +106,7 @@ function ExpCard({ exp, index }: { exp: (typeof experiences)[0]; index: number }
               </span>
               <span style={{
                 fontFamily: 'var(--sans)', fontSize: '9px', fontWeight: 500, color: 'var(--muted)',
-                background: 'rgba(255,255,255,0.06)', border: '1px solid var(--border)',
+                background: 'rgba(28,26,24,0.05)', border: '1px solid var(--border)',
                 padding: '2px 9px', borderRadius: '100px',
               }}>
                 {exp.period}
@@ -147,8 +147,8 @@ function ExpCard({ exp, index }: { exp: (typeof experiences)[0]; index: number }
                 style={{
                   fontFamily: 'var(--sans)', fontSize: '10px', fontWeight: 400,
                   color: 'var(--muted)',
-                  background: 'rgba(232,180,188,0.08)',
-                  border: '1px solid rgba(232,180,188,0.16)',
+                  background: 'rgba(37,99,235,0.07)',
+                  border: '1px solid rgba(37,99,235,0.16)',
                   borderRadius: '100px', padding: '3px 11px', cursor: 'default',
                 }}
               >
@@ -195,10 +195,13 @@ export function Experience() {
                     animate={headerInView ? { y: '0%', skewY: 0 } : {}}
                     transition={{ duration: 0.85, delay: 0.1 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                     style={{
-                      fontFamily: 'var(--display)', fontWeight: 900,
-                      fontSize: 'clamp(2.6rem, 5vw, 4.5rem)',
-                      letterSpacing: '-0.04em', lineHeight: 0.95,
-                      color: i === 1 ? 'var(--muted)' : 'var(--fg)',
+                      fontFamily: i === 1 ? 'var(--serif)' : 'var(--display)',
+                      fontStyle: i === 1 ? 'italic' : 'normal',
+                      fontWeight: i === 1 ? 300 : 700,
+                      fontSize: 'clamp(2.2rem, 4.5vw, 4rem)',
+                      letterSpacing: i === 1 ? '-0.01em' : '-0.03em',
+                      lineHeight: 0.95,
+                      color: 'var(--fg)',
                     }}
                   >
                     {line}

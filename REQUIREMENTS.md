@@ -1,7 +1,13 @@
-# Portfolio Redesign: "The Translucent Architect"
+# Portfolio Redesign: "The Queen" — Editorial Light Mode
 
 ## Vision
-A dark, atmospheric glassmorphism interface floating within a photorealistic desert landscape. Deep space feeling with frosted glass tiles, organic floating spheres, and parallax depth.
+A clean, high-impact editorial layout inspired by *The Queen* by glocreativedesign.com. The signature look combines:
+- **Giant ghost/marquee section text** — huge teal letters filling the full viewport width, with content cards overlaid on top (the most distinctive element)
+- **Mixed typography** — italic Cormorant Garamond + black DM Sans in the same heading line
+- **Full-bleed rounded image cards** — photos fill the card, overlay text sits on top with gradient scrim
+- **Editorial split layouts** — image left, content right (or reversed) with generous whitespace
+- **Clean flat cards** — no heavy glassmorphism, white/cream solid panels with a soft border
+- **Teal accent** used generously: as background color for footer CTA, ghost text color, badge/tag color
 
 ---
 
@@ -9,162 +15,130 @@ A dark, atmospheric glassmorphism interface floating within a photorealistic des
 
 ### Color Palette
 ```
---bg-deep:    #0d0c0b       /* near-black base */
---bg-mid:     #1a1714       /* section dark */
---glass-bg:   rgba(255,255,255,0.06)   /* frosted tile surface */
---glass-bg-warm: rgba(200,170,150,0.10) /* warmer glass variant */
---glass-border: rgba(255,255,255,0.13)  /* glass rim light */
---fg:         rgba(255,255,255,0.92)   /* primary text */
---muted:      rgba(255,255,255,0.44)   /* secondary text */
---ghost:      rgba(255,255,255,0.04)   /* background ghost text */
---accent:     #e8b4bc                  /* blush pink (sphere glow) */
---accent-dim: rgba(232,180,188,0.18)   /* pink ambient */
---silver:     rgba(200,198,195,0.7)    /* silver sphere */
---border:     rgba(255,255,255,0.09)
+--bg:            #ede9de       /* warm cream base */
+--bg-mid:        #e5e1d6       /* slightly deeper cream */
+--card-bg:       rgba(255,255,255,0.60)   /* clean frosted white card */
+--card-border:   rgba(0,0,0,0.08)         /* subtle dark rim */
+--fg:            #1a1917       /* near-black charcoal text */
+--muted:         rgba(26,25,23,0.50)      /* secondary text */
+--ghost:         rgba(26,25,23,0.04)      /* ghost elements */
+--accent:        #4a6e64       /* deep muted teal */
+--accent-light:  #6a9188       /* lighter teal for hover states */
+--accent-dim:    rgba(74,110,100,0.10)    /* teal ambient fill */
+--border:        rgba(0,0,0,0.07)         /* subtle dark divider */
 ```
 
-### Typography
-- **Sans**: `Inter`, -apple-system, sans-serif (replace DM Sans)
-- All heading weights stay 700–900
-- All body text white/light on dark backgrounds
+### Typography — "The Queen" mixed editorial style
+- **Primary font**: `DM Sans` — body, labels, sans headings
+- **Display serif**: `Cormorant Garamond` — italic accent words in headings (weights 300–400 italic)
+- **Heading pattern**: DM Sans 900 bold + Cormorant Garamond 300 italic **mixed in the same line**
+  - Example: `<span class="serif-italic">Virtual</span> Pilates +` or `Sierra <span class="serif-italic">Cheng</span>`
+- **Ghost section labels**: DM Sans 900, huge (`clamp(8rem, 20vw, 22rem)`), color `var(--accent)`, opacity 0.13–0.16, `letter-spacing: -0.04em`, `pointer-events: none`
+- **Body**: DM Sans 400, line-height 1.78
+- **Small caps labels**: DM Sans 500, `0.18–0.22em` letter-spacing, all-caps, 9–10px
 
-### Glass Card Recipe
+### Card Style — Clean Editorial (NOT glassmorphism)
 ```css
-background: var(--glass-bg);
-backdrop-filter: blur(24px) saturate(1.4);
--webkit-backdrop-filter: blur(24px) saturate(1.4);
-border: 1px solid var(--glass-border);
-border-radius: 32px;  /* ~48px for hero, 24px for smaller tiles */
-box-shadow: 0 8px 32px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+/* .card — flat editorial card, no blur */
+background: rgba(255, 255, 255, 0.58);
+border: 1px solid rgba(0, 0, 0, 0.08);
+border-radius: 24px;
+box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.03);
+
+/* Full-bleed image card (hero, projects) */
+border-radius: 28px;
+overflow: hidden;
+/* image fills 100% width/height, gradient overlay on top */
+background: linear-gradient(to bottom, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.65) 100%);
+```
+
+### Ghost Section Text — THE signature element
+Large viewport-spanning text in teal placed absolutely behind content:
+```css
+position: absolute;
+font-family: var(--display);
+font-weight: 900;
+font-size: clamp(8rem, 18vw, 22rem);
+letter-spacing: -0.04em;
+line-height: 0.88;
+color: var(--accent);
+opacity: 0.13;
+white-space: nowrap;
+pointer-events: none;
+user-select: none;
+```
+
+### Background
+- **Base**: Solid `#ede9de` (no blobs — clean editorial, not watercolor)
+- No color orbs — the ghost text provides the visual interest
+- Navbar frosted: `rgba(237,233,222,0.88)` on scroll, `backdrop-filter: blur(16px)`
+
+---
+
+## Section-by-Section Layout
+
+### 1. Hero (`Hero.tsx`)
+**Layout**: Two-column — left: editorial text (NOT in a card) | right: tall rounded full-bleed image card
+- Left column (55%):
+  - Section label: `01 — Portfolio` in small caps, teal
+  - Headline: DM Sans 900 `"Sierra"` + Cormorant 300 italic `"Cheng"` on next line — mixing weights/fonts
+  - Subheadline in DM Sans 400 muted
+  - Two CTAs: primary teal pill button + ghost outline button
+- Right column (45%):
+  - Tall rounded card (`border-radius: 28px`, `height: 520px`)
+  - Full-bleed image (`/water-bg.jpg`, `object-fit: cover`)
+  - Gradient overlay scrim (dark at bottom)
+  - Overlay text inside card (role + eyebrow badge) at the bottom
+
+### 2. About (`About.tsx`)
+**Layout**: Keep bento grid but update card style from glass → clean editorial `.card`
+- Bio tile: Change "Architect. Engineer. Builder." so "Architect." uses Cormorant italic
+- Stats tile: keep, update colors to teal
+- Education tile: teal badge
+- Skills: clean `.card` style, teal hover
+
+### 3. Experience (`Experience.tsx`)
+**Layout**: Clean vertical card list (keep current layout)
+- Section heading: "Professional" DM Sans 900 + "*Experience*" Cormorant italic in teal
+- Card style: clean `.card` instead of glass
+- Stack tags: teal accent
+
+### 4. Projects (`Projects.tsx`) — THE QUEEN SIGNATURE SECTION
+**Layout**: Giant ghost text behind bento grid
+- Behind the bento: absolutely positioned `"SELECTED · WORK"` in two lines, teal, huge (18–20vw per line), fills the section vertically
+- Bento cards remain on top (`position: relative; z-index: 2`)
+- Card image scrim: gradient bottom overlay (lighter than before — `rgba(0,0,0,0.55)` → `rgba(0,0,0,0.45)`)
+- Impact tag at bottom of card: teal color, `var(--accent)`
+
+### 5. Contact (`Contact.tsx`)
+**Layout**: Split two-panel — left info, right form — on a **teal background section**
+- Section background: `var(--accent)` (#4a6e64) — fills the full viewport, white text
+- Heading: "Let's Build" DM Sans 900 white + "*Something Great*" Cormorant italic, off-white/cream
+- Info rows: white text on teal
+- Form card: white/cream solid card on teal background
+- Submit button: white bg, teal text
+- Footer bar: teal or near-black
+
+---
+
+## CSS Changes
+
+### `index.css`
+```css
+/* Replace .glass with .card (flat editorial) */
+.card {
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 24px;
+  box-shadow: 0 2px 20px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.03);
+}
+/* Keep .glass/.glass-sm as aliases pointing to .card tokens */
 ```
 
 ---
 
-## Background Layer
-
-**Approach:** Fixed full-viewport atmospheric background using a high-quality desert/dusk Unsplash image with a dark overlay gradient. No Three.js needed for the background — use a CSS fixed background with parallax on the scroll container.
-
-**Floating Orbs:** Pure Framer Motion + CSS. Three orbs:
-- Pink orb: `#e8b4bc`, 180px, blur glow, drifts with mouse parallax
-- Silver orb: `rgba(200,198,195,0.85)`, 80px, metallic gradient
-- Deep pink orb: `#d4789c`, 60px, bottom-right area
-
-All orbs use `useMotionValue` + `useSpring` to react to mouse position at different intensities.
-
----
-
-## File-by-File Implementation Plan
-
-### 1. `index.css` — Full overhaul
-- New CSS variables (all above)
-- Body background: `var(--bg-deep)`
-- Selection color: `var(--accent)`
-- Replace Inter font import in `index.html`
-- Add `.glass` utility class
-
-### 2. `index.html` — Font swap
-- Remove DM Sans + Cormorant Garamond
-- Add Inter (weights 400, 500, 700, 900) from Google Fonts
-
-### 3. `App.tsx` — Add global background layer
-- Wrap everything in a `<div>` with fixed desert background image
-- Add `FloatingOrbs` component above sections
-- Re-add `Projects` section (currently missing from App.tsx)
-
-### 4. `Hero.tsx` — Complete rewrite
-**Layout:** Centered vertically and horizontally, single large glass card (~780px wide)
-**Inside card:**
-- Eyebrow tag: `Full-Stack Developer · M.S. UW`
-- H1: `Sierra Cheng` (large, white, Inter 900)
-- Subtitle: italic, muted — "Architecting high-performance digital systems through engineering precision."
-- Sub-headline paragraph
-- Two CTA buttons: `View Work →` + `Get in Touch`
-**Background:** Orbs drift behind card, subtle parallax on scroll
-
-Remove: current bottom-pinned text layout, SectionStrip from hero, ghost text watermark
-
-### 5. `About.tsx` — Bento Glass Grid rewrite
-**Layout:** Responsive CSS grid of glass tiles
-**Tile sizes:**
-- Large tile (col-span-2): Bio text + M.S. UW callout
-- Medium tile: Stats (100K+, 5+ yrs, 30+ components)
-- Small tiles ×16: One per skill, each with shimmer hover effect
-**Background:** Same dark atmospheric, glass tiles float above it
-
-Remove: current two-column layout with ghost text watermark
-
-### 6. `Experience.tsx` — Stacking glass cards
-**Layout:** Vertical stack with `gap: 12px`, cards enter from below on scroll
-**Each card:** Existing grid (left metric + right description) but restyled:
-- Uniform glass recipe on ALL cards (no more light/dark variant logic per card)
-- `border-radius: 28px`
-- Metric number in blush accent color (`var(--accent)`)
-- Stack pills in blush-tinted glass tags
-**Animation:** stagger entrance as user scrolls, slight `scale` grow on hover
-
-Keep: existing data, tilt effect, counter animation
-
-### 7. `Projects.tsx` — Glass panel rewrite
-**Layout:** Keep 2-col grid structure but restyle:
-- Left panel: Glass tile with project image as background (CSS `background-size: cover`) + title overlay
-- Right panel: Pure glass, white text
-- Remove per-project `panelBg` hardcoded colors; replace with consistent glass
-
-### 8. `Contact.tsx` — Glass form card
-**Layout:** Center the form in a single large glass card
-**Inputs:** Glass-styled: `background: rgba(255,255,255,0.06)`, white border on focus
-**Submit button:** Blush accent background (#e8b4bc), dark text
-**Left info column:** Same glass tile, stacked info rows with divider lines
-
-Keep: existing form logic, magnetic submit, fetch to backend
-
-### 9. `Navbar.tsx` — Glass nav
-**Change:** `rgba(239...)` → `rgba(13,12,11,0.7)` base, glass blur on scroll
-**Text:** White/muted white
-**Logo:** `Sierra.` in white Inter 700
-
-### 10. `CustomCursor.tsx` — Accent tint
-**Change:** Cursor dot → blush accent on hover state
-
-### 11. New `FloatingOrbs.tsx` component
-```
-client/src/components/ui/FloatingOrbs.tsx
-```
-Three Framer Motion `motion.div` orbs:
-- Each listens to global mouse position from Redux `cursorX/Y`
-- Different spring stiffness → parallax depth illusion
-- CSS radial-gradient for glow effect
-- `pointer-events: none`, `position: fixed`, `z-index: 0`
-
----
-
-## What is NOT changing
-- All Redux store logic (uiSlice, projectsSlice)
-- All hooks (useMagneticCursor, useScrollReveal, useCounter, useTilt)
-- All backend code
-- Form submission logic
-- Framer Motion animation triggers (useInView, useScroll)
-- Component file structure / routing
-
----
-
-## Dependencies to Add
-```bash
-# None required — no Three.js needed for this approach
-# Inter font via Google Fonts (free, no install)
-```
-
----
-
-## Execution Order
-1. `index.html` — font swap
-2. `index.css` — new design tokens + glass utility
-3. `FloatingOrbs.tsx` — new component
-4. `App.tsx` — background + orbs integration
-5. `Navbar.tsx` — glass nav
-6. `Hero.tsx` — centered glass card hero
-7. `About.tsx` — bento glass grid
-8. `Experience.tsx` — uniform glass cards
-9. `Projects.tsx` — glass panels
-10. `Contact.tsx` — glass form
-11. `CustomCursor.tsx` — accent tint
+## Removed from previous design
+- All `backdrop-filter: blur()` glassmorphism
+- Color blob background layer (App.tsx orbs)
+- Heavy taupe-tinted panel tinting
+- Taupe `#8c7e6e` accent — replaced by teal `#4a6e64`
