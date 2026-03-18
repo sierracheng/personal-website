@@ -64,7 +64,7 @@ export function WaterSparkle() {
   const ripplesRef   = useRef<Ripple[]>([]);
   const causticRef   = useRef<CausticThread[]>([]);
   const mouseRef     = useRef({ x: -9999, y: -9999 });
-  const rafRef       = useRef<number>();
+  const rafRef       = useRef<number | undefined>(undefined);
   const tRef         = useRef(0);
 
   useEffect(() => {

@@ -13,7 +13,7 @@ const COLORS = ['232,180,188', '212,120,156', '200,198,195']; // blush, rose, si
 export function ParticleTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<Particle[]>([]);
-  const rafRef = useRef<number>();
+  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
     const canvas = canvasRef.current;
