@@ -4,10 +4,11 @@ import { SectionStrip } from './Hero';
 import { useCounter } from '../../hooks/useCounter';
 
 const SKILLS = [
-  'JavaScript', 'TypeScript', 'Python', 'SQL',
-  'React', 'Next.js', 'Redux Toolkit', 'Tailwind CSS',
-  'Node.js', 'Express.js', 'GraphQL', 'MongoDB',
-  'AWS', 'Azure', 'Figma', 'Playwright',
+  { category: 'Languages',       items: ['JavaScript (ES6+)', 'TypeScript', 'JQuery', 'HTML5', 'CSS3', 'Python', 'SQL'] },
+  { category: 'Front-End',       items: ['React', 'Redux', 'Vue.js', 'Angular', 'Next.js', 'Tailwind CSS', 'Material UI'] },
+  { category: 'Back-End',        items: ['Node.js', 'Express.js', 'GraphQL', 'MongoDB (Mongoose)', 'REST APIs'] },
+  { category: 'Testing & Tools', items: ['Git', 'Webpack', 'npm', 'Jest', 'Cypress', 'Playwright', 'PostHog', 'React Testing Library'] },
+  { category: 'Others',          items: ['Figma', 'Responsive Design', 'Cross-Browser Compatibility', 'AWS', 'Azure', 'Agile', 'Jira'] },
 ];
 
 function Stat({ value, suffix, label, inView }: { value: number; suffix: string; label: string; inView: boolean; delay: number }) {
@@ -101,10 +102,9 @@ export function About() {
           transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           style={{ background: 'var(--bg-panel)', borderRadius: '24px', padding: '40px 48px', display: 'flex', gap: '48px' }}
         >
-          <p style={{ fontFamily: 'var(--sans)', fontSize: '10px', fontWeight: 400, color: 'var(--muted)', marginBottom: '16px' }}>Education</p>
           <Stat value={100} suffix="K+" label="Suppliers scaled" inView={inView} delay={0.5} />
-          <Stat value={5}   suffix="+"  label="Years experience" inView={inView} delay={0.6} />
-          <Stat value={30}  suffix="+"  label="UI components built" inView={inView} delay={0.7} />
+          <Stat value={2}   suffix="+"  label="Years experience" inView={inView} delay={0.6} />
+          <Stat value={100}  suffix="+"  label="UI components built" inView={inView} delay={0.7} />
         </motion.div>
 
         <motion.div
@@ -132,20 +132,29 @@ export function About() {
         transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
         style={{ background: 'var(--bg-panel)', borderRadius: '24px', padding: '36px 48px', marginBottom: '48px' }}
       >
-        <p style={{ fontFamily: 'var(--sans)', fontSize: '10px', fontWeight: 400, color: 'var(--muted)', marginBottom: '20px' }}>Tech stack</p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-          {SKILLS.map((skill, i) => (
-            <motion.span
-              key={skill}
-              className="pill"
-              initial={{ opacity: 0, y: 8 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.3, delay: 0.32 + i * 0.03 }}
-              whileHover={{ borderColor: 'rgba(37,99,235,0.40)', color: 'var(--accent)', scale: 1.04 }}
-              style={{ cursor: 'default' }}
-            >
-              {skill}
-            </motion.span>
+        <p style={{ fontFamily: 'var(--sans)', fontSize: '12px', fontWeight: 400, color: 'var(--muted)', marginBottom: '20px' }}>Tech stack</p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {SKILLS.map((group, gi) => (
+            <div key={group.category} style={{ display: 'flex', alignItems: 'baseline', gap: '12px', flexWrap: 'wrap' }}>
+              <span style={{ fontFamily: 'var(--sans)', fontSize: '11px', fontWeight: 600, color: 'var(--fg)', whiteSpace: 'nowrap', minWidth: '110px' }}>
+                {group.category}
+              </span>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                {group.items.map((skill, i) => (
+                  <motion.span
+                    key={skill}
+                    className="pill"
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={inView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.3, delay: 0.32 + (gi * 7 + i) * 0.02 }}
+                    whileHover={{ borderColor: 'rgba(37,99,235,0.40)', color: 'var(--accent)', scale: 1.04 }}
+                    style={{ cursor: 'default' }}
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </motion.div>

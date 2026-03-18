@@ -13,6 +13,7 @@ const projects = [
     image: '/sourceiq.png',
     span: 3,
     imageH: 300,
+    imagePosition: 'center 18%',
   },
   {
     id: 'opusclip',
@@ -22,9 +23,10 @@ const projects = [
     description: 'Frontend engineering for a high-traffic GenAI video clipping platform. SSR and prefetching implementation increased user retention by 5%.',
     impact: '+5% User Retention · GenAI Powered',
     stack: ['React', 'TypeScript', 'GenAI'],
-    image: 'https://images.unsplash.com/photo-1536240478700-b869ad10e2d5?w=800&q=70',
+    image: '/opusclip.png',
     span: 2,
     imageH: 300,
+    imagePosition: 'center top',
   },
   {
     id: 'treevah',
@@ -34,9 +36,10 @@ const projects = [
     description: 'Led design of a file management application. Established scalable CI/CD pipelines with Jenkins and AWS for optimized content delivery.',
     impact: '−40% Deploy Time · AWS CI/CD',
     stack: ['React', 'TypeScript', 'AWS', 'Jenkins'],
-    image: 'https://images.unsplash.com/photo-1667372393119-3d4c48d07fc9?w=800&q=70',
+    image: '/treevah.png',
     span: 2,
     imageH: 240,
+    imagePosition: 'center top',
   },
   {
     id: 'tmobile',
@@ -46,9 +49,10 @@ const projects = [
     description: 'Co-developed a B2C dashboard with WCAG accessibility and real-time patient data visualization for diverse demographics.',
     impact: 'WCAG AA · 30+ Components',
     stack: ['Next.js', 'Redux', 'Azure'],
-    image: 'https://images.unsplash.com/photo-1551190822-a9333d879b1f?w=800&q=70',
+    image: '/tmobile.png',
     span: 3,
     imageH: 240,
+    imagePosition: 'center top',
   },
 ];
 
@@ -122,8 +126,9 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           src={project.image}
           alt={project.title}
           style={{
+            position: 'absolute', top: 0, left: 0,
             width: '100%', height: '130%',
-            objectFit: 'cover', objectPosition: 'center top',
+            objectFit: 'cover', objectPosition: project.imagePosition,
             display: 'block', x: imgX, y: imgY,
           }}
         />
@@ -134,13 +139,13 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
           zIndex: 1,
         }} />
         {/* Number badge */}
-        <span style={{
+        {/* <span style={{
           position: 'absolute', top: '18px', left: '20px', zIndex: 2,
           fontFamily: 'var(--sans)', fontSize: '9px', fontWeight: 600,
           letterSpacing: '0.18em', color: 'rgba(255,255,255,0.55)',
         }}>
           {project.number}
-        </span>
+        </span> */}
       </div>
 
       {/* Card content */}

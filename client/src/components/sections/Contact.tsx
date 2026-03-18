@@ -1,7 +1,5 @@
 import { useRef, useState } from 'react';
-import { motion, useInView, useMotionValue, useSpring } from 'framer-motion';
-import { useAppDispatch } from '../../store';
-import { setCursorVariant } from '../../store/slices/uiSlice';
+import { motion, useInView } from 'framer-motion';
 import { SectionStrip } from './Hero';
 
 function FocusInput({ type = 'text', placeholder, value, onChange, required, rows }: {
@@ -33,41 +31,23 @@ function FocusInput({ type = 'text', placeholder, value, onChange, required, row
 }
 
 function MagneticSubmit({ status }: { status: string }) {
-  const dispatch = useAppDispatch();
-  const ref = useRef<HTMLButtonElement>(null);
-  const rawX = useMotionValue(0);
-  const rawY = useMotionValue(0);
-  const x = useSpring(rawX, { stiffness: 160, damping: 14 });
-  const y = useSpring(rawY, { stiffness: 160, damping: 14 });
-
-  const onMM = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    rawX.set((e.clientX - r.left - r.width / 2) * 0.32);
-    rawY.set((e.clientY - r.top - r.height / 2) * 0.32);
-  };
-  const onML = () => { rawX.set(0); rawY.set(0); dispatch(setCursorVariant('default')); };
   const sent = status === 'sent';
 
   return (
     <motion.button
-      ref={ref}
       type="submit"
       disabled={status === 'sending' || sent}
-      onMouseMove={onMM}
-      onMouseLeave={onML}
-      onMouseEnter={() => dispatch(setCursorVariant('hover'))}
       style={{
-        x, y,
         fontFamily: 'var(--sans)', fontWeight: 500, fontSize: '12px',
         letterSpacing: '0.02em',
         color: sent ? 'var(--muted)' : '#fff',
         background: sent ? 'var(--bg-panel-2)' : 'var(--fg)',
         border: 'none', borderRadius: '100px', padding: '14px 36px',
-        width: '100%', cursor: status === 'sending' || sent ? 'default' : 'none',
+        width: '100%', cursor: status === 'sending' || sent ? 'default' : 'pointer',
         display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px',
         transition: 'opacity 0.15s',
       }}
+      whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.97 }}
     >
       {sent ? '✓ Message Sent' : status === 'sending' ? 'Sending...' : (
