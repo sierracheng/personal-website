@@ -87,13 +87,13 @@ export function Contact() {
     e.preventDefault();
     setStatus('sending');
     try {
-      const res = await fetch('http://localhost:3001/api/contact', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:3001'}/api/contact`, {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       });
       setStatus(res.ok ? 'sent' : 'error');
       if (res.ok) setForm({ name: '', email: '', message: '' });
-    } catch { setStatus('sent'); setForm({ name: '', email: '', message: '' }); }
+    } catch { setStatus('error'); }
   };
 
   return (
@@ -121,8 +121,8 @@ export function Contact() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0' }}>
             {[
               { label: 'Role',     value: 'Full-Stack Dev' },
-              { label: 'Location', value: 'Seattle, WA' },
-              { label: 'Status',   value: 'Available 2025' },
+              { label: 'Location', value: 'Bellevue, WA' },
+              { label: 'Status',   value: 'Available Immediately' },
             ].map((item) => (
               <div key={item.label} style={{ padding: '10px 0', borderBottom: '1px solid var(--border)' }}>
                 <p style={{ fontFamily: 'var(--sans)', fontSize: '10px', color: 'var(--muted)', marginBottom: '2px' }}>{item.label}</p>
@@ -174,7 +174,7 @@ export function Contact() {
         transition={{ duration: 0.5, delay: 0.4 }}
         style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px 0', borderTop: '1px solid var(--border)', marginTop: '8px' }}
       >
-        <p style={{ fontFamily: 'var(--sans)', fontSize: '11px', color: 'var(--muted)' }}>© 2025 Sierra Cheng</p>
+        <p style={{ fontFamily: 'var(--sans)', fontSize: '11px', color: 'var(--muted)' }}>© 2026 Sierra Cheng</p>
         <div style={{ display: 'flex', gap: '24px' }}>
           {['About', 'Experience', 'Contact'].map((l) => (
             <a key={l} href={`#${l.toLowerCase()}`}

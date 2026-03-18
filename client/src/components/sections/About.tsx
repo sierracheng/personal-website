@@ -68,12 +68,12 @@ export function About() {
             lineHeight: 1.65, color: 'var(--fg)',
             letterSpacing: '-0.01em', marginBottom: '12px',
           }}>
-            Sierra is a Full-Stack Developer with an M.S. from the University of Washington,
+            Hi, I'm Sierra! I'm a Full-Stack Developer with an M.S. from the University of Washington,
             building systems that translate complex microservices into{' '}
             <span style={{ color: 'var(--accent)' }}>intuitive, high-impact interfaces.</span>
           </p>
           <p style={{ fontFamily: 'var(--sans)', fontSize: '13px', lineHeight: 1.78, color: 'var(--muted)', maxWidth: '54ch' }}>
-            From 100K+ supplier supply chains to GenAI video platforms — specializing in performance, accessibility, and scalable enterprise systems.
+            From 100K+ supplier supply chains to GenAI video platforms, specializing in performance, accessibility, and scalable enterprise systems.
           </p>
           <a
             href="#contact"
@@ -101,6 +101,7 @@ export function About() {
           transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           style={{ background: 'var(--bg-panel)', borderRadius: '24px', padding: '40px 48px', display: 'flex', gap: '48px' }}
         >
+          <p style={{ fontFamily: 'var(--sans)', fontSize: '10px', fontWeight: 400, color: 'var(--muted)', marginBottom: '16px' }}>Education</p>
           <Stat value={100} suffix="K+" label="Suppliers scaled" inView={inView} delay={0.5} />
           <Stat value={5}   suffix="+"  label="Years experience" inView={inView} delay={0.6} />
           <Stat value={30}  suffix="+"  label="UI components built" inView={inView} delay={0.7} />
